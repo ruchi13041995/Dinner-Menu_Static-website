@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: menu-dinner
+  labels:
+    app: menu-dinner
+spec:
+  replicas: 6
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  selector:
+    matchLabels:
+      app: menu-dinner
+  template:
+    metadata:
+      labels:
+        app: menu-dinner
+    spec:
+      containers:
+        - name: dinner-menu-ui
+          image: techtitansacademy/dinner-menu-ui:44
+          ports:
+            - containerPort: 8888
